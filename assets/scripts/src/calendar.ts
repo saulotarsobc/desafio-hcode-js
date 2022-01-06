@@ -4,6 +4,7 @@ import startOfMonth from "date-fns/startOfMonth";
 import addMonths from "date-fns/addMonths";
 import subMonths from "date-fns/subMonths";
 import locale from "date-fns/locale/pt-BR"
+import { endOfWeek, startOfISOWeek, startOfWeek } from "date-fns";
 
 const page = document.querySelector("#schedules-new");
 
@@ -23,15 +24,18 @@ if (page) {
 
     const render = () => {
 
-        console.log(2);
-        titulo.innerText = format(inicioMes, "MMMM yyyy", { locale });
-        console.log(3);
+        titulo.innerHTML = format(inicioMes, "MMMM yyyy", { locale });
+
+        calendar.innerHTML = "";
+
+        const inicioCalendario = startOfWeek(inicioMes);
+        const ultimoCalendario = endOfWeek(inicioMes);
 
     }
 
     console.log(4);
 
-    btnProximo.addEventListener("click", ()=> {
+    btnProximo.addEventListener("click", () => {
         inicioMes = addMonths(inicioMes, 1);
         render();
     });
@@ -45,7 +49,7 @@ if (page) {
         inicioMes = startOfMonth(hoje);
         render();
     });
-    
+
 
     render();
 
